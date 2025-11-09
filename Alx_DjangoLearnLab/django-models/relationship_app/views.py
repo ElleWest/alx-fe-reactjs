@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.generic import DetailView
-from django.contrib.auth import login
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.decorators import user_passes_test, permission_required
-from .models import Book, Library, UserProfile
+from .models import Book, Library
 
 def list_books(request):
     books = Book.objects.all()
@@ -12,27 +12,25 @@ def list_books(request):
 class LibraryDetailView(DetailView):
     model = Library
     template_name = 'relationship_app/library_detail.html'
-    context_object_name = 'library'
 
 def register(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('list_books')
+            form.save()
+            return redirect('login')
     else:
         form = UserCreationForm()
-    return render(request, 'relationship_app/register.html', {'form': form})
+    return render(request, 'registration/register.html', {'form': form})
 
 def is_admin(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Admin'
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'admin'
 
 def is_librarian(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Librarian'
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'librarian'
 
 def is_member(user):
-    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'Member'
+    return user.is_authenticated and hasattr(user, 'userprofile') and user.userprofile.role == 'member'
 
 @user_passes_test(is_admin)
 def admin_view(request):
@@ -48,15 +46,15 @@ def member_view(request):
 
 @permission_required('relationship_app.can_add_book')
 def add_book(request):
-    # Logic for adding a book
+    # Placeholder for add book form
     return render(request, 'relationship_app/add_book.html')
 
-@permission_required('relationship_app.can_change_book')
+@permission_required('relationship_app.can_edit_book')
 def edit_book(request, book_id):
-    # Logic for editing a book
+    # Placeholder for edit book form
     return render(request, 'relationship_app/edit_book.html')
 
 @permission_required('relationship_app.can_delete_book')
 def delete_book(request, book_id):
-    # Logic for deleting a book
+    # Placeholder for delete book confirmation
     return render(request, 'relationship_app/delete_book.html')
