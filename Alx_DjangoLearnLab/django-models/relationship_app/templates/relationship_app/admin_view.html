@@ -1,19 +1,22 @@
 <!-- admin_view.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+  <head>
+    <meta charset="UTF-8" />
     <title>Admin Dashboard</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Admin Dashboard</h1>
-    <p>Welcome to the admin dashboard. You have full access to manage the library system.</p>
+    <p>
+      Welcome to the admin dashboard. You have full access to manage the library
+      system.
+    </p>
     <ul>
-        <li><a href="{% url 'list_books' %}">View all books</a></li>
-        <li><a href="{% url 'add_book' %}">Add new book</a></li>
-        <li>Manage users and permissions</li>
-        <li>System administration</li>
+      <li><a href="{% url 'list_books' %}">View all books</a></li>
+      <li><a href="{% url 'add_book' %}">Add new book</a></li>
+      <li>Manage users and permissions</li>
+      <li>System administration</li>
     </ul>
     <a href="{% url 'logout' %}">Logout</a>
-</body>
+  </body>
 </html>
