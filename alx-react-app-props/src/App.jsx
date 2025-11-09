@@ -4,7 +4,6 @@ import UserProfile from "./components/UserProfile";
 import Header from "./components/Header";
 import MainContent from "./components/MainContent";
 import Footer from "./components/Footer";
-import ProfilePage from "./ProfilePage";
 import UserContext from "./UserContext";
 
 function App() {
@@ -14,10 +13,9 @@ function App() {
     <UserContext.Provider value={userData}>
       <Header />
       <MainContent />
-      <Footer />
+      <UserProfile />
       <WelcomeMessage />
-      <UserProfile name="Alice" age={25} bio="Loves hiking and photography" />
-      <ProfilePage />
+      <Footer />
     </UserContext.Provider>
   );
 }
